@@ -76,4 +76,4 @@ jobs:
           gsutil cp -r frontend/* gs://${{ secrets.GCS_BUCKET }}/
       - name: Run post-deployment tests
         run: |
-          curl https://your-site-url.com
+          curl https://mylifebucket.com
