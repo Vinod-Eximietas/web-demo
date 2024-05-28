@@ -12,10 +12,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
       - name: Lint Terraform code
         run: |
           terraform fmt -check
@@ -28,10 +34,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+      
       - name: Terraform Validate
         run: |
           terraform init
@@ -42,10 +50,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+      
       - name: Terraform Plan
         run: |
           terraform init
@@ -57,10 +67,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+      
       - name: Terraform Apply
         run: |
           terraform init
@@ -72,9 +84,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
       - name: Deploy to Cloud Storage
         run: |
           gsutil cp -r frontend/* gs://${{ secrets.GCS_BUCKET }}/
+      
       - name: Run post-deployment tests
         run: |
-          curl https://mylifebucket.com
+          curl https://your-site-url.com
